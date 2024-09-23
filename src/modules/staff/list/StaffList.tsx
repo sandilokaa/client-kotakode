@@ -10,7 +10,7 @@ import Blank from '@/layouts/Blank'
 import { useGetListStaffsQuery } from '@/services/staffs'
 import { StaffBrowseRequest } from '@/types/staff'
 
-const ExampleList: FC = () => {
+const StaffList: FC = () => {
   const router = useRouter()
   const { t } = useTranslation(['common', 'staff'])
 
@@ -93,4 +93,4 @@ const ExampleList: FC = () => {
   )
 }
 
-export default ExampleList
+export default StaffList

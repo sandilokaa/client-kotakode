@@ -9,6 +9,7 @@ import Language from '@/components/Language'
 import Logout from '@/components/Logout'
 import Blank from '@/layouts/Blank'
 import { useGetSelfUserMutation } from '@/services/auth'
+import { useGetListStaffsQuery } from '@/services/staffs'
 
 import ImageOne from '../../assets/images/image-1.png'
 
@@ -16,7 +17,7 @@ const Home: React.FC = () => {
   const router = useRouter()
   const { t } = useTranslation(['common', 'home'])
 
-  const [getSelfUser, {data}] = useGetSelfUserMutation()
+  const [getSelfUser, {data: userData}] = useGetSelfUserMutation()
 
   useEffect(() => {
     const getData = async () => {
@@ -30,6 +31,8 @@ const Home: React.FC = () => {
     
     getData()
   }, [getSelfUser])
+
+  const { data: staffsData } = useGetListStaffsQuery({ page: 0, pageSize: 0 })
 
   return (
     <Blank title={t('home:title')}>
@@ -47,8 +50,8 @@ const Home: React.FC = () => {
 
           <div className='mt-8 flex'>
             <div className='w-full py-5 px-6'>
-              { data && (
-                <h1 className='font-primary font-bold md:text-3xl'>Hello, {data?.data[0]?.attributes?.username || 'Guest'}!</h1>
+              { userData && (
+                <h1 className='font-primary font-bold md:text-3xl'>Hello, {userData?.data[0]?.attributes?.username || 'Guest'}!</h1>
               )}
               <p className='font-primary mt-2 font-medium text-gray-500'>Is it time to update your attendance for today?</p>
             </div>
@@ -97,24 +100,31 @@ const Home: React.FC = () => {
                       <h1 className='font-primary font-bold md:text-lg'>
                         {t('home:staffList')}
                       </h1>
-                      <p className='font-primary font-medium text-gray-500 md:text-sm'>5 Staff</p>
+                      <p className='font-primary font-medium text-gray-500 md:text-sm'>{staffsData?.count} Staff</p>
                     </div>
                   </div>
                 </Link>
               </div>
-              <div className='flex h-full cursor-pointer gap-4 rounded-lg bg-purple-100 p-5 hover:drop-shadow-xl'>
-                <div className='content-center rounded-md bg-purple-300 p-2'>
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="h-8">
-                    <path d="M12.75 12.75a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM7.5 15.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM8.25 17.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM9.75 15.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM10.5 17.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM12 15.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM12.75 17.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM14.25 15.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM15 17.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM16.5 15.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM15 12.75a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM16.5 13.5a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Z" />
-                    <path fillRule="evenodd" d="M6.75 2.25A.75.75 0 0 1 7.5 3v1.5h9V3A.75.75 0 0 1 18 3v1.5h.75a3 3 0 0 1 3 3v11.25a3 3 0 0 1-3 3H5.25a3 3 0 0 1-3-3V7.5a3 3 0 0 1 3-3H6V3a.75.75 0 0 1 .75-.75Zm13.5 9a1.5 1.5 0 0 0-1.5-1.5H5.25a1.5 1.5 0 0 0-1.5 1.5v7.5a1.5 1.5 0 0 0 1.5 1.5h13.5a1.5 1.5 0 0 0 1.5-1.5v-7.5Z" clipRule="evenodd" />
-                  </svg>
-                </div>
-                <div className='content-center'>
-                  <h1 className='font-primary font-bold md:text-lg'>
-                    Attendance
-                  </h1>
-                  <DateRealTimeComponent />
-                </div>
+              <div>
+                <Link
+                  href={{ pathname: '/attendances', query: { lang: router.query.lang } }}
+                  locale={router.locale}
+                >
+                  <div className='flex h-full cursor-pointer gap-4 rounded-lg bg-purple-100 p-5 hover:drop-shadow-xl'>
+                    <div className='content-center rounded-md bg-purple-300 p-2'>
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="h-8">
+                        <path d="M12.75 12.75a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM7.5 15.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM8.25 17.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM9.75 15.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM10.5 17.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM12 15.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM12.75 17.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM14.25 15.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM15 17.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM16.5 15.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM15 12.75a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM16.5 13.5a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Z" />
+                        <path fillRule="evenodd" d="M6.75 2.25A.75.75 0 0 1 7.5 3v1.5h9V3A.75.75 0 0 1 18 3v1.5h.75a3 3 0 0 1 3 3v11.25a3 3 0 0 1-3 3H5.25a3 3 0 0 1-3-3V7.5a3 3 0 0 1 3-3H6V3a.75.75 0 0 1 .75-.75Zm13.5 9a1.5 1.5 0 0 0-1.5-1.5H5.25a1.5 1.5 0 0 0-1.5 1.5v7.5a1.5 1.5 0 0 0 1.5 1.5h13.5a1.5 1.5 0 0 0 1.5-1.5v-7.5Z" clipRule="evenodd" />
+                      </svg>
+                    </div>
+                    <div className='content-center'>
+                      <h1 className='font-primary font-bold md:text-lg'>
+                        Attendance
+                      </h1>
+                      <DateRealTimeComponent />
+                    </div>
+                  </div>
+                </Link>
               </div>
             </div>
           </div>
