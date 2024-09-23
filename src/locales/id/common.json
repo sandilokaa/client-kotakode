@@ -1,0 +1,8 @@
+{
+  "titles": {
+    "home": "Kotakode",
+    "staff": "Staff List",
+    "profile": "Profile"
+  },
+  "backTo": "Back to {{page}}"
+}
