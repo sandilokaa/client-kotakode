@@ -64,7 +64,7 @@ const AttendanceButton: FC = () => {
                                     Date
                                 </label>
                                 <input
-                                    {...register('clockIn')}
+                                    {...register('clockIn', { required: true })}
                                     type='datetime-local'
                                     id='date'
                                     className='h-10 appearance-none rounded border py-2 px-3 text-gray-500'

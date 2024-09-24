@@ -111,6 +111,7 @@ const StaffUpdate: FC = () => {
                                         <input
                                             {...register('username')}
                                             type="text"
+                                            id='username'
                                             defaultValue={data?.data?.[0]?.attributes?.username ?? 'Loading...'}
                                             className="mt-1 block w-full rounded-lg border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                                         />
@@ -118,23 +119,25 @@ const StaffUpdate: FC = () => {
                                 </div>
                                 <div className='grid grid-cols-2 gap-4'>
                                     <div>
-                                        <label htmlFor='first-name' className="mb-1 block text-sm font-medium text-gray-700">
+                                        <label htmlFor='firstName' className="mb-1 block text-sm font-medium text-gray-700">
                                             First Name
                                         </label>
                                         <input
                                             {...register('firstName')}
                                             type="text"
+                                            id='firstName'
                                             defaultValue={data?.data?.[0]?.attributes?.firstName ?? 'Loading...'}
                                             className="mt-1 block w-full rounded-lg border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                                         />
                                     </div>
                                     <div>
-                                        <label htmlFor='last-name' className="mb-1 block text-sm font-medium text-gray-700">
+                                        <label htmlFor='lastName' className="mb-1 block text-sm font-medium text-gray-700">
                                             Last Name
                                         </label>
                                         <input
                                             {...register('lastName')}
                                             type="text"
+                                            id='lastName'
                                             defaultValue={data?.data?.[0]?.attributes?.lastName ?? 'Loading...'}
                                             className="mt-1 block w-full rounded-lg border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                                         />
@@ -142,23 +145,25 @@ const StaffUpdate: FC = () => {
                                 </div>
                                 <div className='grid grid-cols-2 gap-4'>
                                     <div>
-                                        <label htmlFor='staff-id' className="mb-1 block text-sm font-medium text-gray-700">
+                                        <label htmlFor='staffId' className="mb-1 block text-sm font-medium text-gray-700">
                                             Staff Id
                                         </label>
                                         <input
                                             {...register('staffId')}
                                             type="text"
+                                            id='staffId'
                                             defaultValue={data?.data?.[0]?.attributes?.staffId ?? 'Loading...'}
                                             className="mt-1 block w-full rounded-lg border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                                         />
                                     </div>
                                     <div>
-                                        <label htmlFor='last-name' className="mb-1 block text-sm font-medium text-gray-700">
+                                        <label htmlFor='email' className="mb-1 block text-sm font-medium text-gray-700">
                                             Email
                                         </label>
                                         <input
                                             {...register('email')}
                                             type="email"
+                                            id='email'
                                             defaultValue={data?.data?.[0]?.attributes?.email ?? 'Loading...'}
                                             className="mt-1 block w-full rounded-lg border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                                         />
@@ -166,12 +171,13 @@ const StaffUpdate: FC = () => {
                                 </div>
                                 <div className='flex flex-col gap-4'>
                                     <div>
-                                        <label htmlFor='username' className="mb-1 block text-sm font-medium text-gray-700">
+                                        <label htmlFor='password' className="mb-1 block text-sm font-medium text-gray-700">
                                             Password
                                         </label>
                                         <input
                                             {...register('password')}
                                             type="password"
+                                            id='password'
                                             placeholder="Enter your new password"
                                             className="mt-1 block w-full rounded-lg border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                                         />

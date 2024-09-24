@@ -15,5 +15,13 @@ export interface AttendanceFromCreate {
     clockOut: string
 }
 
+export interface AttendanceFromUpdate {
+    id: string
+    staffId: string
+    clockIn: string
+    clockOut: string
+}
+
 export type AttendanceFormRequest = BaseRequest<AttendanceFromCreate>
+export type AttendanceFormUpdateRequest = BaseRequest<AttendanceFromUpdate>
 export type AttendanceDetailResponse = BaseResponse<Attendance>

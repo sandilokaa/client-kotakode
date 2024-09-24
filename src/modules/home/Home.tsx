@@ -32,7 +32,7 @@ const Home: React.FC = () => {
     getData()
   }, [getSelfUser])
 
-  const { data: staffsData } = useGetListStaffsQuery({ page: 0, pageSize: 0 })
+  const { data: staffsData } = useGetListStaffsQuery({ page: 1, pageSize: 10000 })
 
   return (
     <Blank title={t('home:title')}>

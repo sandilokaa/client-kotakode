@@ -8,7 +8,12 @@ const AllAttendance: FC = () => {
 
     return (
         <div className='mt-6 px-6 py-2'>
-            <div className='grid grid-cols-2 gap-4'>
+            
+            <div>
+                <h1 className='text-lg font-bold'>Last Activity</h1>
+            </div>
+
+            <div className='mt-6 grid grid-cols-2 gap-4'>
                 {attendanceData?.data.map((data) => (    
                 <div className='rounded-md bg-gray-100 p-4' key={data.attributes.id}>
                     {data.attributes.clockIn === null ? (
@@ -19,7 +24,7 @@ const AllAttendance: FC = () => {
                     <div className='mt-2 grid grid-cols-2 gap-x-2'>
                         <div className='flex flex-col gap-y-2'>
                             {data.attributes.clockIn === null ? (
-                                <h1 className='text-md font-medium'>Not submitted yet</h1>
+                                <h1 className='text-md font-bold text-red-500'>Not submitted yet</h1>
                             ) : (
                                 <h1 className='text-md font-medium'>{data.attributes.clockIn.split('T')[1]}</h1>
                             )}
@@ -27,7 +32,7 @@ const AllAttendance: FC = () => {
                         </div>
                         <div className='flex flex-col gap-y-2'>
                             {data.attributes.clockOut === null ? (
-                                <h1 className='text-md font-medium'>Not submitted</h1>
+                                <h1 className='text-md font-bold text-red-500'>Not submitted</h1>
                             ) : (
                                 <h1 className='text-md font-medium'>{data.attributes.clockOut.split('T')[1]}</h1>
                             )}

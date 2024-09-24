@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import React, { FC } from 'react'
+import React, { FC, useEffect,useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import Language from '@/components/Language'
@@ -8,12 +8,26 @@ import Logout from '@/components/Logout'
 import Blank from '@/layouts/Blank'
 import { useGetDetailStaffQuery } from '@/services/staffs'
 
+import StaffProfile from './StaffProfile'
+import StaffAttendance from './StaffAttendance'
+
 const StaffDetail: FC = () => {
   const router = useRouter()
   const { t } = useTranslation(['common', 'staff'])
 
   const { data } = useGetDetailStaffQuery(String(router.query.id))
 
+  const [activeButton, setActiveButton] = useState<string | null>(null)
+
+  useEffect(() => {
+      if (activeButton === null) {
+          setActiveButton('Profile')
+      }
+  }, [activeButton])
+
+  const handleClick = (buttonName: string) => {
+      setActiveButton(buttonName)
+  }
 
   return (
     <Blank title={data?.data?.[0]?.attributes?.firstName ?? 'Loading...'}>
@@ -65,29 +79,32 @@ const StaffDetail: FC = () => {
             </div>
           </div>
 
-          <div className='mt-10 flex flex-col gap-4 px-6'>
-            <div className='flex flex-col gap-2'>
-              <h3 className='text-md font-bold'>Fullname</h3>
-              <p className='text-md text-gray-700'>{data?.data?.[0]?.attributes?.fullName ?? 'Loading...'}</p>
-            </div>
-            <div className='flex flex-col gap-2'>
-              <h3 className='text-md font-bold'>Username</h3>
-              <p className='text-md text-gray-700'>{data?.data?.[0]?.attributes?.username ?? 'Loading...'}</p>
-            </div>
-            <div className='grid grid-cols-2'>
-              <div className='flex flex-col gap-2'>
-                <h3 className='text-md font-bold'>First Name</h3>
-                <p className='text-md text-gray-700'>{data?.data?.[0]?.attributes?.firstName ?? 'Loading...'}</p>
-              </div>
-              <div className='flex flex-col gap-2'>
-                <h3 className='text-md font-bold'>Last Name</h3>
-                <p className='text-md text-gray-700'>{data?.data?.[0]?.attributes?.lastName ?? 'Loading...'}</p>
-              </div>
-            </div>
-            <div className='flex flex-col gap-2'>
-                <h3 className='text-md font-bold'>Email</h3>
-                <p className='text-md text-gray-700'>{data?.data?.[0]?.attributes?.email ?? 'Loading...'}</p>
-            </div>
+          <div className='mt-10 flex flex-row gap-4 px-6'>
+              <button
+                  className={`w-28 rounded-md px-3 py-2 text-sm font-medium ${activeButton === 'Profile' ? 'bg-blue-400 text-white' : 'text-black ring-1 ring-gray-300'}`}
+                  onClick={() => handleClick('Profile')}
+              >
+                  Profile
+              </button>
+              <button
+                  className={`w-28 rounded-md px-3 py-2 text-sm font-medium ${activeButton === 'Attendance' ? 'bg-blue-400 text-white' : 'text-black ring-1 ring-gray-300'}`}
+                  onClick={() => handleClick('Attendance')}
+              >
+                  Attendance
+              </button>
+          </div>
+
+          <div>
+              {activeButton && (
+                  <div>
+                      {activeButton === 'Profile' && (
+                          <StaffProfile />
+                      )}
+                      {activeButton === 'Attendance' && (
+                          <StaffAttendance />
+                      )}
+                  </div>
+              )}
           </div>
         </section>
       </main>

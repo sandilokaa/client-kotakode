@@ -21,8 +21,8 @@ const api = createApi({
     getDetailStaff: builder.query<StaffDetailResponse, string>({
       query: (id) => ({
         url: `/staffs/${id}`,
+        providesTags: ['Staff'],
       }),
-      providesTags: ['Staff'],
     }),
     staffUpdate: builder.mutation<void, { id: string; data: StaffFormUpdateRequest }>({
       query: ({ id, data }) => ({
