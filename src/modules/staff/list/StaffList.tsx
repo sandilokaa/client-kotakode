@@ -14,12 +14,38 @@ const StaffList: FC = () => {
   const router = useRouter()
   const { t } = useTranslation(['common', 'staff'])
 
-  const [query] = useState<StaffBrowseRequest>({
+  const [query, setQuery] = useState<StaffBrowseRequest>({
     page: 0,
     pageSize: 5,
+    email: '',
+    firstName: '',
   })
 
-  const { data: staffs, isLoading } = useGetListStaffsQuery(query)
+  const { data: staffs, isLoading, refetch } = useGetListStaffsQuery(query)
+
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault()
+
+    const form = e.currentTarget as HTMLFormElement
+    const formData = new FormData(form)
+    const email = formData.get('email') as string
+    const firstName = formData.get('firstName') as string
+    
+    setQuery((prev) => {
+
+      const newQuery = {
+        ...prev,
+        email,
+        firstName,
+      }
+
+
+      console.log(newQuery);
+      return newQuery
+    })
+
+    refetch()
+  }
 
   return (
     <Blank title={t('staff:title')}>
@@ -46,6 +72,23 @@ const StaffList: FC = () => {
                       </p>
                   </div>
               </Link>
+          </div>
+
+          <div className='mt-6 flex justify-start px-6 py-2'>
+            <div className='flex'>
+              <form onSubmit={handleSearch} className="mx-auto flex max-w-sm items-center gap-2">   
+                  <label htmlFor="simple-search" className="sr-only">Search</label>
+                  <div className="relative w-full">
+                      <input type="text" id="simple-search" className="ps-10 light:border-gray-600 light:bg-transparent light:text-black light:placeholder:text-gray-400 light:focus:border-gray-500 light:focus:ring-gray-500 block w-60 rounded-lg border border-gray-300  bg-gray-50 p-2.5 text-sm text-black focus:border-gray-500 focus:ring-gray-500" placeholder="Search name..." required />
+                  </div>
+                  <button type="submit" className="ms-2 rounded-lg border border-black bg-black p-3 text-sm font-medium text-white focus:outline-none focus:ring-1 focus:ring-black dark:bg-black dark:focus:ring-black">
+                      <svg className="h-4 w-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                          <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                      </svg>
+                      <span className="sr-only">Search</span>
+                  </button>
+              </form>
+            </div>
           </div>
 
           <div className='mt-6 grid grid-cols-1 gap-y-6 gap-x-4 px-6 sm:grid-cols-1 lg:grid-cols-2'>

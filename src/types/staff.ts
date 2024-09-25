@@ -16,6 +16,8 @@ export interface Staff {
 export type StaffBrowseRequest = {
   page: number
   pageSize: number
+  email?: string
+  firstName?: string
 }
 
 export interface StaffFormUpdate {

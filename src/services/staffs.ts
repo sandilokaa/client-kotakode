@@ -12,8 +12,12 @@ const api = createApi({
   keepUnusedDataFor: 259200, // 3 days
   endpoints: (builder) => ({
     getListStaffs: builder.query<StaffBrowseResponse, StaffBrowseRequest>({
-      query: (params) => ({
-        params,
+      query: ({ email, firstName, ...params}) => ({
+        params: {
+          email,
+          firstName,
+          ...params
+        },
         url: '/staffs',
         providesTags: ['Staff'],
       }),
@@ -24,6 +28,7 @@ const api = createApi({
         providesTags: ['Staff'],
       }),
     }),
+
     staffUpdate: builder.mutation<void, { id: string; data: StaffFormUpdateRequest }>({
       query: ({ id, data }) => ({
         url: `/staffs/${id}`,
