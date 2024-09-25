@@ -8,8 +8,8 @@ import Logout from '@/components/Logout'
 import Blank from '@/layouts/Blank'
 import { useGetDetailStaffQuery } from '@/services/staffs'
 
-import StaffProfile from './StaffProfile'
 import StaffAttendance from './StaffAttendance'
+import StaffProfile from './StaffProfile'
 
 const StaffDetail: FC = () => {
   const router = useRouter()

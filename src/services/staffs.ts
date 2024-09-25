@@ -12,9 +12,8 @@ const api = createApi({
   keepUnusedDataFor: 259200, // 3 days
   endpoints: (builder) => ({
     getListStaffs: builder.query<StaffBrowseResponse, StaffBrowseRequest>({
-      query: ({ email, firstName, ...params}) => ({
+      query: ({ firstName, ...params}) => ({
         params: {
-          email,
           firstName,
           ...params
         },
